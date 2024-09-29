@@ -20,8 +20,6 @@
 //
 // No hints this time!
 
-// I AM NOT DONE
-
 pub enum Command {
     Uppercase,
     Trim,
@@ -32,11 +30,31 @@ mod my_module {
     use super::Command;
 
     // TODO: Complete the function signature!
-    pub fn transformer(input: ???) -> ??? {
+    fn change_uppercase(string: &String) -> String {
+        string.to_uppercase()
+    }
+    fn change_trim(string: &String) -> String {
+        string.trim().to_string()
+    }
+    fn change_append(string: &String, num: usize) -> String {
+        let mut s = string.to_string();
+        for _ in 0..num {
+            s.push_str("bar");
+        }
+        s.to_string()
+    }
+    pub fn transformer(input: Vec<(String, Command)>) -> Vec<String> {
         // TODO: Complete the output declaration!
-        let mut output: ??? = vec![];
+        let mut output: Vec<String> = vec![];
         for (string, command) in input.iter() {
+            match command {
+                Command::Uppercase => output.push(change_uppercase(string)),
+                Command::Trim => output.push(change_trim(string)),
+                Command::Append(x) => output.push(change_append(string, *x))
+            }
             // TODO: Complete the function body. You can do it!
+            // output.push(string.to_lowercase());
+
         }
         output
     }
@@ -45,7 +63,7 @@ mod my_module {
 #[cfg(test)]
 mod tests {
     // TODO: What do we need to import to have `transformer` in scope?
-    use ???;
+    use crate::my_module::transformer as transformer;
     use super::Command;
 
     #[test]
